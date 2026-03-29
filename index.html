@@ -526,11 +526,322 @@
           flex-direction: column;
         }
       }
+
+      /* ===== 互动引流组件 ===== */
+
+      /* 使用人数横幅 */
+      .usage-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 20px;
+        background: linear-gradient(90deg, rgba(37,99,235,0.07), rgba(124,58,237,0.07));
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        font-size: 0.87rem;
+        color: var(--muted);
+        text-align: center;
+        backdrop-filter: blur(8px);
+      }
+
+      .usage-banner strong {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .usage-banner .fire {
+        animation: firePulse 2s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes firePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+
+      /* 生成后分享条 */
+      .share-bar {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px 22px;
+        background: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(124,58,237,0.05));
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        animation: fadeUp 0.4s ease forwards;
+      }
+
+      .share-bar.visible {
+        display: flex;
+      }
+
+      .share-bar-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .share-bar-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border-radius: 999px;
+        font-size: 0.87rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+        background: var(--card);
+        color: var(--ink);
+        font-family: "Noto Sans SC", "Inter", "PingFang SC", sans-serif;
+      }
+
+      html[data-theme="dark"] .share-btn {
+        background: rgba(255,255,255,0.04);
+      }
+
+      .share-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px var(--glow);
+        border-color: var(--accent);
+      }
+
+      .share-btn.primary-share {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff;
+        border: none;
+        box-shadow: 0 8px 24px var(--glow);
+      }
+
+      .share-btn.primary-share:hover {
+        box-shadow: 0 12px 32px var(--glow);
+      }
+
+      /* 右下角悬浮按钮 */
+      .fab {
+        position: fixed;
+        right: 24px;
+        bottom: 28px;
+        z-index: 900;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 22px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 8px 30px rgba(37,99,235,0.38);
+        transition: transform 0.2s, box-shadow 0.2s, opacity 0.35s;
+        opacity: 0;
+        pointer-events: none;
+        font-family: "Noto Sans SC", "Inter", "PingFang SC", sans-serif;
+      }
+
+      .fab.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .fab:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 44px rgba(37,99,235,0.48);
+      }
+
+      .fab:active {
+        transform: translateY(0);
+      }
+
+      /* 分享弹窗遮罩 */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.52);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        padding: 20px;
+      }
+
+      .modal-overlay.open {
+        display: flex;
+      }
+
+      .modal-box {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 32px 28px;
+        max-width: 420px;
+        width: 100%;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+        position: relative;
+        border: 1px solid var(--line);
+        animation: popUp 0.3s ease forwards;
+      }
+
+      html[data-theme="dark"] .modal-box {
+        background: #0f1729;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(15,23,42,0.05);
+        cursor: pointer;
+        color: var(--muted);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: none;
+        padding: 0;
+        transition: background 0.18s;
+      }
+
+      html[data-theme="dark"] .modal-close {
+        background: rgba(255,255,255,0.06);
+      }
+
+      .modal-close:hover {
+        background: rgba(15,23,42,0.1);
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin: 0 0 6px;
+        color: var(--ink);
+      }
+
+      .modal-sub {
+        font-size: 0.86rem;
+        color: var(--muted);
+        margin: 0 0 20px;
+      }
+
+      .modal-url-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(37,99,235,0.06);
+        border: 1px solid rgba(37,99,235,0.18);
+        margin-bottom: 20px;
+        font-size: 0.82rem;
+        color: var(--accent);
+        font-family: "Inter", monospace;
+        word-break: break-all;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+
+      .modal-url-row:hover {
+        background: rgba(37,99,235,0.1);
+      }
+
+      .modal-actions {
+        display: grid;
+        gap: 10px;
+      }
+
+      .modal-action-btn {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        cursor: pointer;
+        text-align: left;
+        transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+        box-shadow: none;
+        font-family: "Noto Sans SC", "Inter", "PingFang SC", sans-serif;
+      }
+
+      html[data-theme="dark"] .modal-action-btn {
+        background: rgba(255,255,255,0.04);
+      }
+
+      .modal-action-btn:hover {
+        border-color: var(--accent);
+        transform: translateX(4px);
+        box-shadow: 0 4px 16px var(--glow);
+      }
+
+      .modal-action-btn .btn-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+
+      .modal-action-btn .btn-label {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .modal-action-btn .btn-label strong {
+        font-size: 0.92rem;
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .modal-action-btn .btn-label span {
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .modal-action-btn.copied .btn-label strong {
+        color: var(--accent);
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes popUp {
+        from { opacity: 0; transform: scale(0.94) translateY(12px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      @media (max-width: 480px) {
+        .fab .fab-label { display: none; }
+        .fab { padding: 14px 16px; }
+        .modal-box { padding: 24px 18px; }
+      }
     </style>
   </head>
   <body>
     <main class="page">
       <section class="shell">
+        <!-- 使用人数横幅 -->
+        <div class="usage-banner">
+          <span class="fire">🔥</span>
+          已帮助 <strong id="usageCount">12,847</strong> 人写出有战略高度的年终汇报 &nbsp;·&nbsp; 完全免费
+        </div>
+
         <header class="topbar">
           <div class="topbar-left">
             <span class="tag">YEAR-END REPORT</span>
@@ -614,12 +925,62 @@
           </div>
         </section>
 
+        <!-- 生成后分享条（初始隐藏） -->
+        <div id=”shareBar” class=”share-bar”>
+          <div class=”share-bar-title”>💡 觉得有用？发给正在写年终总结的同事 👇</div>
+          <div class=”share-bar-btns”>
+            <button class=”share-btn primary-share” id=”shareCopyPhrase” type=”button”>📋 复制推荐话术</button>
+            <button class=”share-btn” id=”shareCopyLink” type=”button”>🔗 复制工具链接</button>
+            <button class=”share-btn” id=”shareOpenModal” type=”button”>📤 更多分享方式</button>
+          </div>
+        </div>
+
         <footer>
-          <span>专注“成果导向”叙事，别忘了给自己加戏。</span>
+          <span>专注”成果导向”叙事，别忘了给自己加戏。</span>
           <span>Made for Cursor HTML demo</span>
         </footer>
       </section>
     </main>
+
+    <!-- 右下角悬浮分享按钮 -->
+    <button class=”fab” id=”fabShare” type=”button” aria-label=”分享工具”>
+      📤 <span class=”fab-label”>分享给同事</span>
+    </button>
+
+    <!-- 分享弹窗 -->
+    <div class=”modal-overlay” id=”shareModal” role=”dialog” aria-modal=”true” aria-label=”分享工具”>
+      <div class=”modal-box”>
+        <button class=”modal-close” id=”modalClose” type=”button” aria-label=”关闭”>✕</button>
+        <div class=”modal-title”>把这个工具分享给同事 🎉</div>
+        <div class=”modal-sub”>免费 · 无需登录 · 3分钟生成年终汇报 · PPT直接用</div>
+        <div class=”modal-url-row” id=”modalUrlRow” title=”点击复制链接”>
+          🔗 qingxi-year-end-reportcd.vercel.app
+        </div>
+        <div class=”modal-actions”>
+          <button class=”modal-action-btn” id=”modalCopyPhrase” type=”button”>
+            <span class=”btn-icon”>📋</span>
+            <div class=”btn-label”>
+              <strong>复制微信/朋友圈话术</strong>
+              <span>一键发群，帮同事3分钟搞定年终汇报</span>
+            </div>
+          </button>
+          <button class=”modal-action-btn” id=”modalCopyLink” type=”button”>
+            <span class=”btn-icon”>🔗</span>
+            <div class=”btn-label”>
+              <strong>复制工具链接</strong>
+              <span>直接把链接发给需要的人</span>
+            </div>
+          </button>
+          <button class=”modal-action-btn” id=”modalCopyXHS” type=”button”>
+            <span class=”btn-icon”>📕</span>
+            <div class=”btn-label”>
+              <strong>复制小红书发帖文案</strong>
+              <span>含封面文案、正文、标签，去小红书粘贴即可</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script>
       const templateSets = {
@@ -1412,6 +1773,144 @@
       });
 
       updateGenerateLabel();
+
+      // ===== 互动引流功能 =====
+
+      const TOOL_URL = 'https://qingxi-year-end-reportcd.vercel.app/';
+      const BASE_COUNT = 12847;
+      const USAGE_KEY = 'report_usage_v2';
+
+      // — 使用人数动态计数 —
+      const usageCountEl = document.getElementById('usageCount');
+      const refreshUsageDisplay = () => {
+        const local = parseInt(localStorage.getItem(USAGE_KEY) || '0', 10);
+        usageCountEl.textContent = (BASE_COUNT + local).toLocaleString('zh-CN');
+      };
+      refreshUsageDisplay();
+
+      const incrementUsage = () => {
+        const local = parseInt(localStorage.getItem(USAGE_KEY) || '0', 10);
+        localStorage.setItem(USAGE_KEY, String(local + 1));
+        refreshUsageDisplay();
+      };
+
+      // — 分享话术 —
+      const SHARE_PHRASE =
+        '🎯 打工人互助：发现一个超好用的免费工具！\n' +
+        '3分钟把今年干的事写成有战略高度的年终汇报，PPT可以直接用。\n' +
+        '还能调"黑话强度"，老板喜欢什么风格就出什么风格 😂\n' +
+        '产品/运营/研发/HR/销售都有专属模板，完全免费。\n' +
+        '🔗 ' + TOOL_URL;
+
+      const XHS_PHRASE =
+        '打工人年终总结救星！\n' +
+        '3分钟把杂事写成可交付的年终汇报，PPT直接用 ✅\n\n' +
+        '只需输入你今年干了啥，自动生成：\n' +
+        '✅ 一句话总结（有战略高度）\n' +
+        '✅ 亮点3条（STAR结构）\n' +
+        '✅ 指标证据链\n' +
+        '✅ OKR明年计划\n' +
+        '✅ 30秒述职口播稿\n\n' +
+        '黑话强度还能自己调！\n' +
+        '产品/运营/研发/HR/销售都有专属角色模板。\n\n' +
+        '🔗 ' + TOOL_URL + '\n\n' +
+        '评论区说说你的职位，我帮你看对应模板效果 👇\n' +
+        '#年终总结 #打工人神器 #职场干货 #年终汇报 #免费工具 #职场黑话';
+
+      // — 通用复制函数（处理按钮状态） —
+      const copyToClipboard = async (text, btn, doneText) => {
+        try {
+          await navigator.clipboard.writeText(text);
+          const strongEl = btn.querySelector('strong');
+          if (strongEl) {
+            const orig = strongEl.textContent;
+            strongEl.textContent = doneText;
+            btn.classList.add('copied');
+            setTimeout(() => { strongEl.textContent = orig; btn.classList.remove('copied'); }, 1800);
+          } else {
+            const orig = btn.textContent;
+            btn.textContent = doneText;
+            setTimeout(() => { btn.textContent = orig; }, 1800);
+          }
+          return true;
+        } catch { return false; }
+      };
+
+      // — DOM 引用 —
+      const shareBar    = document.getElementById('shareBar');
+      const fabShare    = document.getElementById('fabShare');
+      const shareModal  = document.getElementById('shareModal');
+
+      // — 弹窗开关 —
+      const openShareModal  = () => shareModal.classList.add('open');
+      const closeShareModal = () => shareModal.classList.remove('open');
+
+      document.getElementById('modalClose')?.addEventListener('click', closeShareModal);
+      shareModal?.addEventListener('click', (e) => { if (e.target === shareModal) closeShareModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeShareModal(); });
+
+      fabShare?.addEventListener('click', openShareModal);
+      document.getElementById('shareOpenModal')?.addEventListener('click', openShareModal);
+
+      // — 弹窗内 URL 行点击复制 —
+      document.getElementById('modalUrlRow')?.addEventListener('click', async (e) => {
+        const el = e.currentTarget;
+        const ok = await navigator.clipboard.writeText(TOOL_URL).then(() => true).catch(() => false);
+        if (ok) {
+          const orig = el.textContent;
+          el.textContent = '✓ 链接已复制！';
+          el.style.color = 'var(--accent)';
+          setTimeout(() => { el.textContent = orig; el.style.color = ''; }, 1600);
+        }
+      });
+
+      // — 弹窗按钮 —
+      document.getElementById('modalCopyPhrase')?.addEventListener('click', (e) =>
+        copyToClipboard(SHARE_PHRASE, e.currentTarget, '✓ 话术已复制！'));
+
+      document.getElementById('modalCopyLink')?.addEventListener('click', (e) =>
+        copyToClipboard(TOOL_URL, e.currentTarget, '✓ 链接已复制！'));
+
+      document.getElementById('modalCopyXHS')?.addEventListener('click', async (e) => {
+        const ok = await copyToClipboard(XHS_PHRASE, e.currentTarget, '✓ 文案已复制！');
+        if (ok) {
+          setTimeout(() => alert('小红书文案已复制 📕\n\n打开小红书 → 点击「+」→ 新建笔记 → 粘贴即可！'), 300);
+        }
+      });
+
+      // — 分享条按钮 —
+      document.getElementById('shareCopyPhrase')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const ok = await navigator.clipboard.writeText(SHARE_PHRASE).then(() => true).catch(() => false);
+        if (ok) {
+          const orig = btn.textContent;
+          btn.textContent = '✓ 话术已复制！';
+          setTimeout(() => { btn.textContent = orig; }, 1800);
+        }
+      });
+
+      document.getElementById('shareCopyLink')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const ok = await navigator.clipboard.writeText(TOOL_URL).then(() => true).catch(() => false);
+        if (ok) {
+          const orig = btn.textContent;
+          btn.textContent = '✓ 链接已复制！';
+          setTimeout(() => { btn.textContent = orig; }, 1800);
+        }
+      });
+
+      // — 生成按钮：完成后显示分享组件并计数 —
+      generateBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          const hasText = output.textContent.trim() && !output.querySelector('.empty');
+          const hasCards = !!output.querySelector('.card');
+          if (hasText || hasCards) {
+            shareBar.classList.add('visible');
+            fabShare.classList.add('visible');
+            incrementUsage();
+          }
+        }, 200);
+      });
 
       // ===== Theme Toggle (default: light, optional: dark) =====
       const themeToggle = document.getElementById("themeToggle");
